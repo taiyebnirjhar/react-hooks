@@ -1,9 +1,12 @@
 import { React, useEffect, useState } from "react";
 
 function Todo() {
-  const [todo, setTodo] = useState("");
-  const [warning, setWarning] = useState(null);
+  const [todo, setTodo] = useState({
+    title: "",
+    description: null,
+  });
 
+  const { title, description } = todo;
   useEffect(() => {}, [todo]);
 
   const changeHandler = (e) => {
@@ -32,18 +35,30 @@ function Todo() {
   console.log(todo);
   return (
     <div className="p-4">
-      <p className="py-4">{todo}</p>
+      <p className="py-4">{title}</p>
       <textarea
         className="border-2 border-gray-500"
         name="todo"
-        value={todo}
+        value={title}
         id=""
         cols="25"
         rows="2"
-        onChange={changeHandler}
+        onChange={(e) => {
+          const inputValue = e.target.value;
+          const warning = inputValue.includes("js")
+            ? `You need JavaScript skill to complete the task. Do you have it?`
+            : "";
+          setTodo((prev) => {
+            return {
+              ...prev,
+              title: inputValue,
+              description: warning,
+            };
+          });
+        }}
       ></textarea>
       <hr />
-      <h2>{warning || "Good Choice"}</h2>
+      <h2>{description || `Good choice`}</h2>
     </div>
   );
 }
