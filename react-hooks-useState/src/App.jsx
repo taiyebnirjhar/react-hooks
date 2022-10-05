@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Header from "./components/Header";
+import Todo from "./components/Todo";
+
 // import "./App.css";
 
 function App() {
@@ -6,7 +9,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>hello world</h1>
+      <Header />
+      <Todo />
     </div>
   );
 }
